@@ -1,27 +1,3 @@
-<<<<<<< HEAD
-public class CV {
-	
-	private String nom, prenom, formation;
-	private int xp;
-	private String[] compt;
-	private String attentes;
-
-	
-		public static void main(String[] args) {
-			
-			System.out.println("Bienvenue chez Barette!");
-			
-			CV cv1 = new CV("Roy", "Luc", "Informatique", 10, "Aucune" );
-			
-			affiche(cv1);
-			
-			CV cv2 = new CV("Roy", "Luc", "Informatique", 10, "Aucune" );
-			
-			affiche(cv2);
-			
-	}
-}
-=======
 
 public class CV {
 
@@ -43,17 +19,14 @@ public CV (String nom, String prénom, String formation, int xp, String[] comp, S
 		
 	}
 
-public void afficher(CV cvTemp){
+public void afficher(){
 	String temp="";
-	for(int i=0;i<cvTemp.comp.length;++i){
+	for(int i=0;i<this.comp.length;++i){
 		temp+=this.comp[i] + ", ";
 	}
-	System.out.println("Nom: " + cvTemp.nom + "\nPrénom: " + cvTemp.prénom + "\nFormation: " + cvTemp.formation + "\nAnnées d'expériences: " + cvTemp.xp + "\nCompétences: " + temp + "\nAttentes: " + cvTemp.attente );
+	System.out.println("Nom: " + this.nom + "\nPrénom: " + this.prénom + "\nFormation: " + this.formation + "\nAnnées d'expériences: " + this.xp + "\nCompétences: " + temp + "\nAttentes: " + this.attente );
 }
 	
 }
 
-	
-	
-	
->>>>>>> c1b3d53bba9f4ebe1462541acba8dd26ce0c5cf5
+
