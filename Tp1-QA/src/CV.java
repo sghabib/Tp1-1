@@ -14,7 +14,7 @@ public CV (String nom, String prénom, String formation, int xp, String[] comp, S
 		this.prénom = prénom;
 		this.formation = formation;
 		this.xp = xp;
-		System.arraycopy(this.comp, 0, comp, 0, comp.length);
+		System.arraycopy(comp, 0, this.comp, 0, comp.length);
 		this.attente= attente;
 		
 	}
