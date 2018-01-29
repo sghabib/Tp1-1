@@ -19,12 +19,12 @@ public CV (String nom, String prénom, String formation, int xp, String[] comp, S
 		
 	}
 
-public void afficher(CV cvTemp){
+public void afficher(){
 	String temp="";
-	for(int i=0;i<cvTemp.comp.length;++i){
+	for(int i=0;i<this.comp.length;++i){
 		temp+=this.comp[i] + ", ";
 	}
-	System.out.println("Nom: " + cvTemp.nom + "\nPrénom: " + cvTemp.prénom + "\nFormation: " + cvTemp.formation + "\nAnnées d'expériences: " + cvTemp.xp + "\nCompétences: " + temp + "\nAttentes: " + cvTemp.attente );
+	System.out.println("Nom: " + this.nom + "\nPrénom: " + this.prénom + "\nFormation: " + this.formation + "\nAnnées d'expériences: " + this.xp + "\nCompétences: " + temp + "\nAttentes: " + this.attente );
 }
 	
 }
