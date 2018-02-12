@@ -1,5 +1,5 @@
 
-public class main {
+public class Test {
 
 	public static void main(String[] args) {
 		
@@ -14,6 +14,8 @@ public class main {
 		CV cv2 = new CV("Vaillancourt", "Étienne", "Informatique", 2, competence,"Apprendre à utiliser GitHub" );
 		
 		cv2.afficher();
+		
+		Facture test = new Facture("test.txt");
 		
 		}
 
