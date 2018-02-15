@@ -3,7 +3,7 @@ public class Commandes {
 
 	private String nomClient;
 	private String nomRepas;
-	private int quantité;
+	private double quantité;
 	
 	public Commandes(){
 		this.nomClient="";
@@ -11,7 +11,7 @@ public class Commandes {
 		this.quantité=0;
 	}
 	
-	public Commandes(String nomClient, String nomRepas, int quantité){
+	public Commandes(String nomClient, String nomRepas, double quantité){
 		this.nomClient=nomClient;
 		this.nomRepas=nomRepas;
 		this.quantité=quantité;
@@ -25,7 +25,7 @@ public class Commandes {
 		return this.nomRepas;
 	}
 	
-	public int getQuantité(){
+	public double getQuantité(){
 		return this.quantité;
 	}
 }

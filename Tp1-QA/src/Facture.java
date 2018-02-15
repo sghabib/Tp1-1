@@ -1,15 +1,12 @@
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 import outilsjava.*;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 
 
@@ -23,56 +20,81 @@ public class Facture {
 	private int j=0;
 	private int k=0;
 	private int l=0;
+	private int compteurC=0;
+	private int compteurP=0;
+	private int compteurCommandes=0;
 	private Clients clientTemp;
 	private String[] textePlat;
 	private String[] texteCommandes;
 	
 	public Facture(String nomFichier){
-				
-		String ligne;
-		int i=0;
-		ficSource = OutilsFichier.ouvrirFicTexteLecture(nomFichier);
+
 		try {
-			while((ligne=ficSource.readLine())!=null){
-				texte[i]=ligne;
-				++i;
-			}
+			texte=lectureFichier(nomFichier);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		for(int i=0;i<texte.length;++i){
+			System.out.println(texte[i]);
+		}
+		int i=0;
+			if(texte[i].equalsIgnoreCase("Clients:")){
+			while(!texte[i].equalsIgnoreCase("Plats:")){
+					++i;
+					compteurC++;
+			}		
+
+			while(!texte[i].equalsIgnoreCase("Commandes:")){
+					++i;
+					compteurP++;
+				}
+			while(!texte[i].equalsIgnoreCase("Fin")){
+				++i;
+				compteurCommandes++;
+			}
+				
+		}
+		
+		tabClients= new Clients[compteurC];
+		tabPlats = new Plat[compteurP];
+		tabCommandes = new Commandes[compteurCommandes];
 	}
 	
 		
 		
 	public void lireFacture(){
-	for(int i=0;i<texte.length;++i){
+		int i=0;
 		if(texte[i].equalsIgnoreCase("Clients:")){
-		while(texte[i]!="Plats :"){
-				++i;
+			++i;
+		while(!texte[i].equalsIgnoreCase("Plats:")){				
 				clientTemp =  new Clients(texte[i]);
 				tabClients[j]= clientTemp;
+				++i;
 				++j;
 		}		
-
-		while(texte[i]!="Commandes:"){
-				++i;
-				textePlat = texte[i].split(" ");
-				Plat platTemp = new Plat(textePlat[0],Integer.parseInt(textePlat[1]));
+			++i;
+		while(!texte[i].equalsIgnoreCase("Commandes:")){
+				
+				textePlat = texte[i].split("\\s+");
+				Plat platTemp = new Plat(textePlat[0],Double.parseDouble(textePlat[1]));
 				tabPlats[k]= platTemp;
+				++i;
 				++k;
 			}
-		while(texte[i]!="Fin"){
 			++i;
-			texteCommandes = texte[i].split(" ");
-			Commandes commandesTemp = new Commandes(texteCommandes[0],texteCommandes[1],Integer.parseInt(texteCommandes[2]));
+		while(!texte[i].equalsIgnoreCase("Fin")){
+			
+			texteCommandes = texte[i].split("\\s+");
+			Commandes commandesTemp = new Commandes(texteCommandes[0],texteCommandes[1],Double.parseDouble(texteCommandes[2]));
 			tabCommandes[l]= commandesTemp;
+			++i;
 			++l;
 		}
 			
 	}
-	}
+
 	}
 
 	Plat[] platTableau = new Plat[10];
@@ -82,7 +104,7 @@ public class Facture {
 		
 	String clientTemp;
 	String nomRepas;
-	int qte;
+	double qte;
 	double prix = 0;
 	double total;
 	
@@ -129,6 +151,27 @@ public class Facture {
 		
 		
 		
+	}
+	
+	private String[] lectureFichier(String nomFichier) throws IOException{
+		
+		FileReader fileReader;
+			fileReader = new FileReader(nomFichier);
+	
+        
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        List<String> lines = new ArrayList<String>();
+        String line = null;
+         
+
+			while ((line = bufferedReader.readLine()) != null) 
+
+			    lines.add(line);
+
+         
+        bufferedReader.close();
+         
+        return lines.toArray(new String[lines.size()]);
 	}
 
 }

@@ -15,7 +15,9 @@ public class Test {
 		
 		cv2.afficher();
 		
-		Facture test = new Facture("test.txt");
+		Facture test = new Facture("Essai.txt");
+		
+		test.lireFacture();
 		
 		}
 

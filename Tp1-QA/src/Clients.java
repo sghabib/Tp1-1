@@ -14,4 +14,5 @@ public class Clients {
 	public String getNomClient(){
 		return this.nomClient;
 	}
+
 }
