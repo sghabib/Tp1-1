@@ -28,8 +28,19 @@ public class Facture {
 	private String[] texteCommandes;
 	
 	public Facture(String nomFichier){
-					
-		
+				
+		String ligne;
+		int i=0;
+		ficSource = OutilsFichier.ouvrirFicTexteLecture(nomFichier);
+		try {
+			while((ligne=ficSource.readLine())!=null){
+				texte[i]=ligne;
+				++i;
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -37,7 +48,7 @@ public class Facture {
 		
 	public void lireFacture(){
 	for(int i=0;i<texte.length;++i){
-		if(texte[i].equalsIgnoreCase("Clients :")){
+		if(texte[i].equalsIgnoreCase("Clients:")){
 		while(texte[i]!="Plats :"){
 				++i;
 				clientTemp =  new Clients(texte[i]);
@@ -45,7 +56,7 @@ public class Facture {
 				++j;
 		}		
 
-		while(texte[i]!="Commandes :"){
+		while(texte[i]!="Commandes:"){
 				++i;
 				textePlat = texte[i].split(" ");
 				Plat platTemp = new Plat(textePlat[0],Integer.parseInt(textePlat[1]));
