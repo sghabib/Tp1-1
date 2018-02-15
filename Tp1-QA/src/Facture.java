@@ -23,6 +23,9 @@ public class Facture {
 	private int j=0;
 	private int k=0;
 	private int l=0;
+	private Clients clientTemp;
+	private String[] textePlat;
+	private String[] texteCommandes;
 	
 	public Facture(String nomFichier){
 					
@@ -37,21 +40,21 @@ public class Facture {
 		if(texte[i].equalsIgnoreCase("Clients :")){
 		while(texte[i]!="Plats :"){
 				++i;
-				Clients clientTemp =  new Clients(texte[i]);
+				clientTemp =  new Clients(texte[i]);
 				tabClients[j]= clientTemp;
 				++j;
 		}		
 
 		while(texte[i]!="Commandes :"){
 				++i;
-				String[] textePlat = texte[i].split(" ");
+				textePlat = texte[i].split(" ");
 				Plat platTemp = new Plat(textePlat[0],Integer.parseInt(textePlat[1]));
 				tabPlats[k]= platTemp;
 				++k;
 			}
 		while(texte[i]!="Fin"){
 			++i;
-			String[] texteCommandes = texte[i].split(" ");
+			texteCommandes = texte[i].split(" ");
 			Commandes commandesTemp = new Commandes(texteCommandes[0],texteCommandes[1],Integer.parseInt(texteCommandes[2]));
 			tabCommandes[l]= commandesTemp;
 			++l;
