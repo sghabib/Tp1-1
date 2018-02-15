@@ -5,7 +5,6 @@ import java.io.FileReader;
 
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class Facture {
 			texte=lectureFichier(nomFichier);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Le fichier n'existe pas");
 		}
 		
 //		for(int i=0;i<texte.length;++i){
@@ -86,12 +85,16 @@ public class Facture {
 			}
 			++i;
 		while(!texte[i].equalsIgnoreCase("Fin")){
-			
+			try{
 			texteCommandes = texte[i].split("\\s+");
 			Commandes commandesTemp = new Commandes(texteCommandes[0],texteCommandes[1],Double.parseDouble(texteCommandes[2]));
 			tabCommandes[l]= commandesTemp;
 			++i;
 			++l;
+			}catch (Exception e){
+				System.out.println("Le fichier ne respecte pas le format demandé!");
+				System.exit(1);
+			}
 		}
 			
 	}
@@ -111,8 +114,17 @@ public class Facture {
 		for ( int i = 0; i < tabClients.length; i++ ) {
 
 			String tempClient = tabClients[i].getNomClient();
+			
+			if(!verifierClient(tempClient)){
+				System.out.println("Le fichier ne respecte pas le format demandé!");
+				System.exit(1);
+			}
 
 			total = 0.00;
+			
+			
+				
+			
 
 			for ( int y = 0; y < tabCommandes.length; y++ ) {
 				qte=0;
@@ -165,6 +177,17 @@ public class Facture {
         bufferedReader.close();
          
         return lines.toArray(new String[lines.size()]);
+	}
+	
+	private boolean verifierClient(String temp){
+		boolean verif=true;
+		for (int w=0; w<tabClients.length&&verif; ++w){
+			if(tabClients[w].getNomClient().equalsIgnoreCase(temp)){
+				verif=true;
+			}
+		}
+		
+		return verif;
 	}
 
 }
