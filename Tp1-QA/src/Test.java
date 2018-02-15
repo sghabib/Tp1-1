@@ -18,6 +18,7 @@ public class Test {
 		Facture test = new Facture("Essai.txt");
 		
 		test.lireFacture();
+		test.affichage();
 		
 		}
 

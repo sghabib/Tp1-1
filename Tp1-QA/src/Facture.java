@@ -2,22 +2,16 @@ import java.text.DecimalFormat;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
-import outilsjava.*;
-
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Facture {
 
-	private BufferedReader ficSource;
+
 	private String[] texte;
 	private Clients[] tabClients;
 	private Plat[] tabPlats;
@@ -43,9 +37,9 @@ public class Facture {
 			e.printStackTrace();
 		}
 		
-		for(int i=0;i<texte.length;++i){
-			System.out.println(texte[i]);
-		}
+//		for(int i=0;i<texte.length;++i){
+//			System.out.println(texte[i]);
+//		}
 		int i=0;
 			if(texte[i].equalsIgnoreCase("Clients:")){
 			while(!texte[i].equalsIgnoreCase("Plats:")){
@@ -64,9 +58,9 @@ public class Facture {
 				
 		}
 		
-		tabClients= new Clients[compteurC];
-		tabPlats = new Plat[compteurP];
-		tabCommandes = new Commandes[compteurCommandes];
+		tabClients= new Clients[compteurC-1];
+		tabPlats = new Plat[compteurP-1];
+		tabCommandes = new Commandes[compteurCommandes-1];
 	}
 	
 		
@@ -121,20 +115,20 @@ public class Facture {
 			total = 0.00;
 
 			for ( int y = 0; y < tabCommandes.length; y++ ) {
-
+				qte=0;
 				if ( tabCommandes[y].getNomClient().equalsIgnoreCase( tempClient ) ) {
 
 					qte = tabCommandes[y].getQuantité();
 
 					String nomRepas = tabCommandes[y].getNomRepas();
 
-					Boolean trouver = false;
 
-					for ( int x = 0; x < tabPlats.length || trouver; x++ ) {
+					
+
+					for ( int x = 0; x < tabPlats.length ; x++ ) {
 
 						if ( tabPlats[x].getNom().equalsIgnoreCase( nomRepas ) ) {
 							prix = tabPlats[x].getPrix();
-							trouver = true;
 
 						}
 
