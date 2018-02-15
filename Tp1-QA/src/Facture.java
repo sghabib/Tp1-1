@@ -1,22 +1,28 @@
+import java.text.DecimalFormat;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import outilsjava.*;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 public class Facture {
-	
+
 	private BufferedReader ficSource;
 	private String[] texte;
 	private Clients[] tabClients;
 	private Plat[] tabPlats;
 	private Commandes[] tabCommandes;
+
 	private int j=0;
 	private int k=0;
 	private int l=0;
@@ -26,6 +32,7 @@ public class Facture {
 	private Clients clientTemp;
 	private String[] textePlat;
 	private String[] texteCommandes;
+	private DecimalFormat df = new DecimalFormat( "#0.00" );
 	
 	public Facture(String nomFichier){
 
@@ -97,60 +104,52 @@ public class Facture {
 
 	}
 
-	Plat[] platTableau = new Plat[10];
 
-	
-	public void affichage(Commandes[] cmd){
-		
-	String clientTemp;
-	String nomRepas;
-	double qte;
-	double prix = 0;
-	double total;
-	
-	
-	System.out.println("Bienvenue chez Barette!\nFactures:");
-	
-	
-	for (int i = 0; i < cmd.length; i++){
-		
-		clientTemp = cmd[i].getNomClient();
-		
-		total= 0.00;
-		
-		for (int y = 0; y < cmd.length; y++){
-			
-			if (cmd[y].getNomClient() == clientTemp);
-			
-			qte=cmd[y].getQuantité();
-			
-			nomRepas=cmd[y].getNomRepas();
-			
-			Boolean trouver = false;
-			
-			for (int x = 0; x < cmd.length || trouver; x++){
-				
-				if (platTableau[x].getNom() == nomRepas){
-					prix = platTableau[x].getPrix();
-					trouver= true;
-					
+
+	public void affichage() {
+
+		double qte = 0;
+		double prix = 0;
+		double total;
+
+		System.out.println( "Bienvenue chez Barette!\nFactures:" );
+
+		for ( int i = 0; i < tabClients.length; i++ ) {
+
+			String tempClient = tabClients[i].getNomClient();
+
+			total = 0.00;
+
+			for ( int y = 0; y < tabCommandes.length; y++ ) {
+
+				if ( tabCommandes[y].getNomClient().equalsIgnoreCase( tempClient ) ) {
+
+					qte = tabCommandes[y].getQuantité();
+
+					String nomRepas = tabCommandes[y].getNomRepas();
+
+					Boolean trouver = false;
+
+					for ( int x = 0; x < tabPlats.length || trouver; x++ ) {
+
+						if ( tabPlats[x].getNom().equalsIgnoreCase( nomRepas ) ) {
+							prix = tabPlats[x].getPrix();
+							trouver = true;
+
+						}
+
+					}
+
 				}
-				
+
+				total += qte * prix;
+
 			}
-			
-			total += qte*prix; 
-			
+
+			System.out.println( tempClient + " " + df.format( total ) + "$" );
+
 		}
-		
-		
-		System.out.println("clientTemp "+ total+"$");
-		
-	}
-	
-	
-		
-		
-		
+
 	}
 	
 	private String[] lectureFichier(String nomFichier) throws IOException{
