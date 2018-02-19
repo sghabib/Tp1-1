@@ -111,14 +111,25 @@ public class Facture {
 
 		System.out.println( "Bienvenue chez Barette!\nFactures:" );
 
+		
+		for ( int i=0; i< tabCommandes.length; i++){
+			String temp = tabCommandes[i].getNomClient();
+			String temp2 = tabCommandes[i].getNomRepas();
+			
+			if(!verifierClient(temp)){
+				System.out.println("Le fichier ne respecte pas le format demandé!");
+				System.exit(1);
+			}
+			if(!verifierPlats(temp2)){
+				System.out.println("Le fichier ne respecte pas le format demandé!");
+				System.exit(1);
+			}
+		}
 		for ( int i = 0; i < tabClients.length; i++ ) {
 
 			String tempClient = tabClients[i].getNomClient();
 			
-			if(!verifierClient(tempClient)){
-				System.out.println("Le fichier ne respecte pas le format demandé!");
-				System.exit(1);
-			}
+			
 
 			total = 0.00;
 			
@@ -180,9 +191,20 @@ public class Facture {
 	}
 	
 	private boolean verifierClient(String temp){
-		boolean verif=true;
-		for (int w=0; w<tabClients.length&&verif; ++w){
+		boolean verif=false;
+		for (int w=0; w<tabClients.length&&!verif; ++w){
 			if(tabClients[w].getNomClient().equalsIgnoreCase(temp)){
+				verif=true;
+			}
+		}
+		
+		return verif;
+	}
+	
+	private boolean verifierPlats(String temp){
+		boolean verif=false;
+		for (int w=0; w<tabPlats.length&&!verif; ++w){
+			if(tabPlats[w].getNom().equalsIgnoreCase(temp)){
 				verif=true;
 			}
 		}
